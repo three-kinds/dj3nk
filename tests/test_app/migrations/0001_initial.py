@@ -5,21 +5,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('id', models.BigIntegerField(default=dj3nk.nk_model.gnk, primary_key=True, serialize=False, verbose_name='id')),
-                ('username', models.CharField(max_length=32)),
+                (
+                    "id",
+                    models.BigIntegerField(
+                        default=dj3nk.nk_model.gnk, primary_key=True, serialize=False, verbose_name="id"
+                    ),
+                ),
+                ("username", models.CharField(max_length=32)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]
