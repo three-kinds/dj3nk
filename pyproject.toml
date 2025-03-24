@@ -7,7 +7,6 @@ name = "dj3nk"
 dynamic = ["version"]
 requires-python = ">= 3.10"
 dependencies = [
-    "django",
     "a3redis >= 0.3.0",
 ]
 authors = [
@@ -45,7 +44,6 @@ include = ["dj3nk*"]
 [tool.mypy]
 packages = [
     "dj3nk",
-    "tests"
 ]
 disable_error_code = [
     "import-untyped",
