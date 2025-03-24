@@ -1,7 +1,2 @@
-a3redis >= 0.1.2
-dj3base >= 0.1.0
-
-# 测试与维护
 django
-coverage >= 6.3.2
-twine
+a3redis >= 0.3.0

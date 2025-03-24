@@ -1,8 +1,6 @@
 # dj3nk
 
-A simple natural key generator base on redis.
-
-[History.](HISTORY.md)
+`dj3nk` is an ID generation algorithm, the principle of which is from [nightteam](https://www.v2ex.com/t/686977).
 
 ## Install
 

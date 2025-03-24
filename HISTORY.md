@@ -1,5 +1,5 @@
 # History
 
-## 0.1.0
+## 0.3.0
 
-1. transfer from thk-django-base
+* Restructure the project.
