@@ -1,28 +1,27 @@
 # -*- coding: utf-8 -*-
 import random
-from django.conf import settings
 
 from a3redis.structures import String
 from a3redis.bases import RedisClientFactory
 
 
 DEFAULT_SETTINGS = {
-    "increment_main_key": "a3:dj:nk",
+    "increment_main_key": "dj3nk",
     "random_bit_length": 16,
     "puzzle_count": 1000000,
-    "rdb_conf_name": "default"
+    "rdb_conf_name": "default",
 }
 
 
 class NaturalKeyGenerator(object):
+    def __init__(self, config: dict | None = None):
+        config = config or DEFAULT_SETTINGS
 
-    def __init__(self, config: dict = None):
-        config = config or getattr(settings, 'NATURAL_KEY', None) or DEFAULT_SETTINGS
-
-        self._increment_main_key = config['increment_main_key']
-        self._random_bit_length = config['random_bit_length']
-        self._puzzle_count = config['puzzle_count']
-        self._rdb_conf_name = config['rdb_conf_name']
+        self._increment_main_key = config["increment_main_key"]
+        self._random_bit_length = config["random_bit_length"]
+        self._puzzle_count = config["puzzle_count"]
+        self._rdb_conf_name = config["rdb_conf_name"]
+        assert isinstance(self._random_bit_length, int)
 
         # python的int与sql bigint 都是64位，1位为符号位，最大值为9223372036854775807
         self._increment_bit_length = 63 - self._random_bit_length
@@ -32,9 +31,10 @@ class NaturalKeyGenerator(object):
     def get_core_increment_string(self) -> String:
         return String(main_key=self._increment_main_key, rdb=RedisClientFactory.get_rdb(name=self._rdb_conf_name))
 
-    def puzzle(self, count: int = None) -> int:
+    def puzzle(self, count: int | None = None) -> int:
         # 混淆
         if count is None:
+            assert isinstance(self._puzzle_count, int)
             count = self._puzzle_count
 
         detail = random.randrange(count, count * 10)

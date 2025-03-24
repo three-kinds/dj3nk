@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-from django.db import models
-from .natural_key_generator import NaturalKeyGenerator
+import importlib.util
 
+if importlib.util.find_spec("django") is not None:
+    from django.db import models
+    from django.conf import settings
 
-nkg = NaturalKeyGenerator()
+    from .natural_key_generator import NaturalKeyGenerator
 
+    nature_key_generator = NaturalKeyGenerator(config=getattr(settings, "DJ3NK", None))
 
-def gnk() -> int:
-    return nkg.generate_nk()
+    def gnk() -> int:
+        return nature_key_generator.generate_nk()
 
+    class NKModel(models.Model):
+        id = models.BigIntegerField("id", primary_key=True, default=gnk)
 
-class NKModel(models.Model):
-    id = models.BigIntegerField('id', primary_key=True, default=gnk)
-
-    class Meta:
-        abstract = True
+        class Meta:
+            abstract = True
